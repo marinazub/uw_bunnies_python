@@ -8,6 +8,33 @@ import random
 
 #global
 num_input = 1000
+products = = {
+    101: {'name':'book', 'price': 15.0},
+    102: {'name':'notepad', 'price': 10.0},
+    103: {'name':'pen', 'price': 3.0},
+}
+
+
+#functions
+
+def compute_price(name, num):
+    for name in products:
+        if name == products[pid]['name']:
+            pid = product[pid]
+    tot_price = products[pid]['price']*num    
+    return tot_price
+    
+def get_date():
+    start = 2020
+    end = 2023
+    numbers = []
+    x = start
+    while x <= end:
+        numbers.append(x)
+        x = x + 1
+
+    choice = random.choice(numbers)
+    return choice
 
 def submit():
     global num_input
@@ -26,44 +53,13 @@ def submit():
             exit()
         else:
             print('Invalid choice!')
-    #functions
-    def compute_price(prodt,num):
-        book_price = 15.0
-        notepad_price = 8.0
-        pen_price = 3.0
-        if prodt == 'book':
-            tot_price = book_price * num
-            prod_id = 101
-        elif prodt == 'notepad':
-            tot_price = notepad_price * num
-            prod_id = 102
-        elif prodt == 'pen':
-            tot_price = pen_price * num
-            prod_id = 103
-        else:
-            tot_price = None
-        
-        return tot_price, prod_id
-    
-    def get_date():
-        start = 2020
-        end = 2023
-        numbers = []
-        x = start
-        while x <= end:
-            numbers.append(x)
-            x = x + 1
-
-        choice = random.choice(numbers)
-        return choice
-    
+   
     #computations
     order_date = get_date()
     product_price_total = compute_price(product, count)
     #update totals
     num_input += 1
 
-    #main
     print(f'''
         product: {product} 
         count: {count} 
@@ -72,8 +68,7 @@ def submit():
         order_date: {order_date}
         order id: {num_input}
             ''')
-
-        
+    
 #main
 quit = False
 while not quit:
