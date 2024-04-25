@@ -42,17 +42,17 @@ def submit():
     for pid, details in products.items():
         if details['name'] == product:
             count = int(input('Enter the quantity of the product >'))
-        else:
-            print('Invalid choice. Enter again: book, notepad or pen>')
-            count = 0
-            print('1.Submit 2.Exit')
-            choice = int(input('Enter 1, or 2> '))
-            if choice == 1:
-                submit()
-            elif choice == 2:
-                exit()
-            else:
-                print('Invalid choice!')
+        #else:
+           # print('Invalid choice. Enter again: book, notepad or pen>')
+           # count = 0
+           # print('1.Submit 2.Exit')
+           # choice = int(input('Enter 1, or 2> '))
+           # if choice == 1:
+            #    submit()
+           #elif choice == 2:
+           #     exit()
+           # else:
+           #     print('Invalid choice!')
    
     #computations
     order_date = get_date()
