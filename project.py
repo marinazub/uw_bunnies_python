@@ -17,12 +17,11 @@ products = = {
 
 #functions
 
-def compute_price(name, num):
-    for name in products:
-        if name == products[pid]['name']:
-            pid = product[pid]
-    tot_price = products[pid]['price']*num    
-    return tot_price
+def compute_price(name, count):
+    for pid, details in products.items():
+        if details['name'] == name:
+            tot_price = products[pid]['price'] * count 
+        return tot_price, pid
     
 def get_date():
     start = 2020
@@ -40,19 +39,20 @@ def submit():
     global num_input
     #inputs
     product = input('Enter the name of product book, notepad or pen >')
-    if product == 'book' or product == 'notepad' or  product == 'pen':
-        count = int(input('Enter the quantity of the product >'))
-    else:
-        print('Invalid choice. Enter again: book, notepad or pen>')
-        count = 0
-        print('1.Submit 2.Exit')
-        choice = int(input('Enter 1, or 2> '))
-        if choice == 1:
-            submit()
-        elif choice == 2:
-            exit()
+    for pid, details in products.items():
+        if details['name'] == product:
+            count = int(input('Enter the quantity of the product >'))
         else:
-            print('Invalid choice!')
+            print('Invalid choice. Enter again: book, notepad or pen>')
+            count = 0
+            print('1.Submit 2.Exit')
+            choice = int(input('Enter 1, or 2> '))
+            if choice == 1:
+                submit()
+            elif choice == 2:
+                exit()
+            else:
+                print('Invalid choice!')
    
     #computations
     order_date = get_date()
