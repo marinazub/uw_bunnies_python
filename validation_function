@@ -1,0 +1,36 @@
+""" Project Assignment.
+
+Input: product and quantity
+Output: order details
+"""
+
+#global
+items = {
+    101: {'name':'headphone', 'price': 15.0},
+    102: {'name':'laptop', 'price': 10.0},
+    103: {'name':'pen', 'price': 3.0},
+}
+
+def submit():
+    product = input('Enter the name of product headphone, laptop or pen >')
+    x = [sku['name'] for sku in items.values()]
+    count = 0
+
+    if product in x:
+        count = int(input('Enter the quantity of the product >'))
+        #order_price = compute_order_price(product, count)
+        #date = get_date()
+        #order_ID += 1
+        #order_date_string = date.strftime("%d-%m-%y")
+    else: 
+        print ('Invalid. Try again.')
+        submit()
+    
+    print(f'''
+        products: {product}
+        quantity: {count}
+            ''')
+        
+
+submit()
+
