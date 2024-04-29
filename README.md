@@ -1,3 +1,2 @@
 # uw_bunnies_python
-Rep for out group project for python
-# github_guide
+Rep for our group project for python
