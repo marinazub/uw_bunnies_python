@@ -3,12 +3,10 @@
 Input: product and quantity
 Output: order details
 """
-import datetime
-import random
 
 #global
 num_input = 1000
-products = = {
+products = {
     101: {'name':'book', 'price': 15.0},
     102: {'name':'notepad', 'price': 10.0},
     103: {'name':'pen', 'price': 3.0},
