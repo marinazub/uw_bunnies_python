@@ -5,7 +5,7 @@ Output: order details
 """
 
 #global
-num_input = 1000
+order_ID = 1000
 products = {
     101: {'name':'book', 'price': 15.0},
     102: {'name':'notepad', 'price': 10.0},
@@ -34,29 +34,21 @@ def get_date():
     return choice
 
 def submit():
-    global num_input
+    global order_ID
     #inputs
-    product = input('Enter the name of product book, notepad or pen >')
-    for pid, details in products.items():
-        if details['name'] == product:
-            count = int(input('Enter the quantity of the product >'))
-        #else:
-           # print('Invalid choice. Enter again: book, notepad or pen>')
-           # count = 0
-           # print('1.Submit 2.Exit')
-           # choice = int(input('Enter 1, or 2> '))
-           # if choice == 1:
-            #    submit()
-           #elif choice == 2:
-           #     exit()
-           # else:
-           #     print('Invalid choice!')
-   
-    #computations
-    order_date = get_date()
-    product_price_total = compute_price(product, count)
-    #update totals
-    num_input += 1
+    product = input('Enter the name of product headphone, laptop or pen >')
+    x = [sku['name'] for sku in items.values()]
+    count = 0
+
+    if product in x:
+        count = int(input('Enter the quantity of the product >'))
+        #order_price = compute_order_price(product, count)
+        #date = get_date()
+        order_ID += 1
+        #order_date_string = date.strftime("%d-%m-%y")
+    else: 
+        print ('Invalid. Try again.')
+        submit()
 
     print(f'''
         product: {product} 
