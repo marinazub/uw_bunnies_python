@@ -75,7 +75,7 @@ def reset():
 quit = False
 while not quit:
     print('1.Submit 2.Reset 3.Exit')
-    choice = int(input('Enter 1, or 2> '))
+    choice = int(input('Enter 1, 2 or 3> '))
     if choice == 1:
         submit()
     elif choice == 2:
