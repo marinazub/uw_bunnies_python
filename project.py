@@ -22,7 +22,9 @@ def compute_price(name, count):
     for pid, details in products.items():
         if details['name'] == name:
             tot_price = products[pid]['price'] * count 
-        return tot_price, pid
+            
+    
+    return tot_price, pid
     
 def get_date():
     start = 0
