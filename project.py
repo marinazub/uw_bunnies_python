@@ -62,7 +62,7 @@ def submit():
         count: {count} 
         total price: {order_price[0]}
         product_id: {order_price[1]}
-        order_date: {order_date}
+        order_date: {order_date_string}
         order id: {order_ID}
             ''')
 
