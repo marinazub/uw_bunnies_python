@@ -8,7 +8,7 @@ import datetime
 import random
 
 #global
-order_ID = 1000
+order_ID = 10000
 products = {
     101: {'name':'headphones', 'price': 15.0},
     102: {'name':'laptop', 'price': 10.0},
@@ -39,6 +39,14 @@ def get_date():
     order_d = start_date + datetime.timedelta(days)
 
     return order_d
+
+
+def show_products(prd_dict):
+
+    for prd_details in prd_dict.values():
+        print(f'{prd_details["name"]} - ${prd_details["price"]}')
+
+#end show_products function
 
 def submit():
     global order_ID
@@ -74,13 +82,15 @@ def reset():
 #main
 quit = False
 while not quit:
-    print('1.Submit 2.Reset 3.Exit')
+    print('1.Submit 2.Reset 3.Show products 4.Exit')
     choice = int(input('Enter 1, 2 or 3> '))
     if choice == 1:
         submit()
     elif choice == 2:
         reset()
     elif choice == 3:
+        show_products(products)
+    elif choice == 4:
         quit = True
     else:
         print('Invalid choice!')
