@@ -49,13 +49,14 @@ def submit():
 
     if product in x:
         count = int(input('Enter the quantity of the product >'))
-        order_price = compute_price(product, count)
-        date = get_date()
-        order_ID += 1
-        order_date_string = date.strftime("%d-%m-%y")
     else: 
         print ('Invalid. Try again.')
         submit()
+
+    order_price = compute_price(product, count)
+    date = get_date()
+    order_ID += 1
+    order_date_string = date.strftime("%d-%m-%y")
 
     print(f'''
         product: {product} 
