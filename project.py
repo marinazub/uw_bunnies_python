@@ -9,6 +9,8 @@ import random
 
 #global
 order_ID = 10000
+
+# unit dictionary
 products = {
     101: {'name':'headphones', 'price': 15.0},
     102: {'name':'laptop', 'price': 10.0},
