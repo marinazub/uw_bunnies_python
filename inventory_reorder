@@ -1,0 +1,64 @@
+products = {
+    101: {'name':'headphones', 'price': 15.0, 'instock': 15},
+    102: {'name':'laptop', 'price': 10.0, 'instock': 5},
+    103: {'name':'pen', 'price': 3.0, 'instock': 0},
+}
+
+
+def show_stock(prd_dict):
+    for prd_details in prd_dict.values():
+        print(f'Product Stock: {prd_details["name"]} - ${prd_details["price"]} - {prd_details["instock"]}')
+
+
+
+def reorder():
+    #collect inputs
+    product_reorder = input('Enter the name of the product to reorder >')
+    if product_reorder in [sku['name'] for sku in products.values()]:
+        quantity = int(input('Enter the order quantity >'))
+        for sku, sku_details in products.items():
+            if sku_details['name'] == product_reorder: 
+                sku_details['instock'] += quantity
+                print(f'Reordered {quantity} units of {product_reorder}. New stock: {sku_details["instock"]}')
+                break
+    else:
+        print ('Invalid product. Try again')
+
+
+show_stock(products)
+reorder()
+show_stock(products)
+    
+
+def login():
+    pass
+
+def show_products(prd_dict):
+
+    for prd_details in prd_dict.values():
+        print(f'{prd_details["name"]} - ${prd_details["price"]}')
+
+def submit():
+    pass
+
+def reset():
+    pass
+
+quit = False
+while not quit:
+    print('0.Login 1.Show products 2.Proceed with order 3.Reset 4.Exit')
+    choice = int(input('Enter 0, 1, 2, 3 or 4> '))
+    if choice == 0:
+        login()
+    if choice == 1:
+        show_products(products)
+    elif choice == 2:
+        submit()
+    elif choice == 3:
+        reset()
+    elif choice == 4:
+        quit = True
+    else:
+        print('Invalid choice!')
+
+print('Goodbye!')
