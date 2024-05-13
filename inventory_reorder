@@ -5,13 +5,12 @@ products = {
 }
 
 
-def show_stock(prd_dict):
+def manager_display_products(prd_dict):
     for prd_details in prd_dict.values():
         print(f'Product Stock: {prd_details["name"]} - ${prd_details["price"]} - {prd_details["instock"]}')
 
 
-
-def reorder():
+def reorder_stock():
     #collect inputs
     product_reorder = input('Enter the name of the product to reorder >')
     if product_reorder in [sku['name'] for sku in products.values()]:
@@ -25,18 +24,19 @@ def reorder():
         print ('Invalid product. Try again')
 
 
-show_stock(products)
-reorder()
-show_stock(products)
+manager_display_products()
+reorder_stock(products)
+manager_display_products()
     
 
 def login():
     pass
 
-def show_products(prd_dict):
+def display_orders():
+    pass
 
-    for prd_details in prd_dict.values():
-        print(f'{prd_details["name"]} - ${prd_details["price"]}')
+def edit_prices():
+    pass
 
 def submit():
     pass
@@ -44,21 +44,22 @@ def submit():
 def reset():
     pass
 
-quit = False
-while not quit:
-    print('0.Login 1.Show products 2.Proceed with order 3.Reset 4.Exit')
-    choice = int(input('Enter 0, 1, 2, 3 or 4> '))
-    if choice == 0:
-        login()
-    if choice == 1:
-        show_products(products)
-    elif choice == 2:
-        submit()
-    elif choice == 3:
-        reset()
-    elif choice == 4:
-        quit = True
-    else:
-        print('Invalid choice!')
-
+print('1.Display order 2.Edit prices 3.Reorder Stock 4.Logout 5.Exit')
+choice = int(input('Enter 1, 2, 3, 4 or 5> '))
+    
+if choice == 1:
+    display_orders()
+elif choice == 2:
+    edit_prices()
+elif choice == 3:
+    reorder_stock()
+elif choice == 4:
+    print('Logging out...')
+elif choice == 5:
+    print('Exiting...')
+    quit_program = True
+else: 
+    print('Invalid choice')
 print('Goodbye!')
+
+manager_display_products(products)
