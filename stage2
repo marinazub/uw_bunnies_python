@@ -1,0 +1,260 @@
+import datetime
+import random
+#global
+inventory = {
+    '101': {'price': 90, 'name': 'pen', 'quantity':100, 'ux_id':1}, 
+    '102': {'price': 70, 'name':'headphone', 'quantity':200, 'ux_id':2},
+    '103': {'price': 80, 'name':'laptop', 'quantity':300, 'ux_id':3},
+    }
+orders = {}
+m_login = {
+    101: {'password':'101m', 'name': 'Jose'},
+    102: {'password':'102m', 'name': 'Danny'},
+    103: {'password':'103m', 'name': 'Rosa'},
+}
+c_login = {
+    111: {'password':'102c', 'name':'Alex'},
+    112: {'password':'103c', 'name': 'Maria'},
+    113: {'password':'101c', 'name': 'Ben'},
+}
+order_ID = 10000
+customer_portal_id = 0
+
+is_customer = True
+
+def login():
+    global is_customer, customer_portal_id
+    is_customer = int(input('Welcome to the login page! For a manager, enter 0, for a customer, enter 1 >'))
+
+    if is_customer:
+        customer_portal_id = int(input('Enter id >'))
+        customer_portal_password = input('Enter password >')
+        if customer_portal_id in c_login and customer_portal_password == c_login[customer_portal_id]['password']:
+            print(f'Welcome: {c_login[customer_portal_id]["name"]}')
+            return True
+        else:
+            print('Wrong credentials. Try again')
+            return False
+    else:
+        manager_portal_id = int(input('Enter id >'))
+        manager_portal_password = input('Enter password >')
+        if manager_portal_id in m_login and manager_portal_password == m_login[manager_portal_id]['password']:
+            print(f'Welcome: {m_login[manager_portal_id]["name"]}! What would you like to do today?')
+            return True
+        else:
+            print('Wrong credentials. Try again')
+            return False
+        
+def main_menu():
+    while True:
+        print(f'1.Login 2.Quit')
+        choice = int(input('Enter 1 or 2 >'))
+        if choice == 1:
+            if login():
+                break
+        elif choice == 2:
+            print('Goodbye!')
+            return False
+        else:
+            print('Invalid choice. Please enter 1 or 2.')
+
+    return True 
+
+def get_date():
+    start = 0
+    end = 365 * 4 + 1
+    numbers = []
+    x = start
+    while x <= end:
+        numbers.append(x)
+        x = x + 1
+
+    days = random.choice(numbers)
+
+    start_date = datetime.date(2020,1,1)
+    order_d = start_date + datetime.timedelta(days)
+
+    return order_d
+
+
+def compute_order_price(i,q):
+    o_p = inventory[i]['product price'] * q
+    return o_p
+
+
+def submit_order():
+    global order_ID, orders, inventory, customer_portal_id
+    print(f'{"Product ID":12}{"Item":12}{"Price":<12}')
+    for inventory_id, inventory_info in inventory.items():
+        print(f'{inventory_id:12}')
+
+    id = input('Enter product you want to order>(101 for pen, 102 for headphone or 103 for laptop)')
+    
+    if id in inventory: 
+        qua = int(input('How many you want?'))
+        if qua > inventory[id]['quantity']:
+            print ('No enough stock!')
+        else:
+            order_price = compute_order_price(id, qua)
+            date = get_date()
+            inventory[id]['quantity'] -= qua
+            order_ID += 1
+            order_date_string = date.strftime("%d %B %Y")
+            product_name = inventory[id]['name']
+            c_id = customer_portal_id
+            print(f'Product name: {id:s}\nQuantity ordered: {qua}\nOrder price: {order_price:.2f}')  
+            print(f'Order ID:{order_ID}\nProduct ID:{id}')
+            print(f'Order date:{order_date_string:15s}')
+
+            orders_details = dict(id = id, qua = qua, order_date_string = order_date_string, order_price = order_price, product_name = product_name, c_id = c_id)
+            orders[order_ID] = orders_details
+    else:
+        print('No such product')
+        submit_order()
+
+
+def customer_view_orders(): 
+    global orders
+    if not orders:
+        print('No data display')
+        return #abruptly exits the function
+    #print format function
+    print('-' * 77)
+    print(f'|{"Order ID":^10s}|{"Date":^20s}|{"Product ID":^10s}|{"Items":^10s}|{"Quantity":^10s}|{"Price":^10s}|')
+    print('-' * 77)
+    for order_ID in orders:
+        print(f'|{order_ID:10d}|')
+    print('-' * 77)
+
+def customer_order_summary():
+    pass
+
+
+def manager_view_orders():
+    global orders
+    if not orders:
+        print('No data display')
+        return #abruptly exits the function
+    #print format function
+    print('-' * 89)
+    print(f'|{"Order ID":^10s}|{"Date":^20s}|{"Product ID":^10s}|{"Items":^10s}|{"Quantity":^10s}|{"Price":^10s}|{"Customer ID":^11s}|')
+    print('-' * 89)
+    for order_ID in orders:
+        print(f'|{order_ID:10d}|')
+    print('-' * 89)
+
+def manager_order_summary():
+    global orders
+    order = []
+    
+    for o_id in orders:
+        ord = orders[o_id]['order_price']
+        order.append(ord)
+
+    avg_order = sum(order)/len(order)
+    print(f'Average Order Price:{avg_order:.2f}')
+
+def edit_prices():
+    print(f'{"Product ID":12}{"Item":12}{"Price":<12}{"Quantity":<12}')
+    for inventory_id, inventory_info in inventory.items():
+        print(f'{inventory_id:12}')
+     
+    choice = input("Enter the product ID to edit its price (or 'q' to quit): ")
+    if choice == 'q':
+        return
+
+    elif choice in inventory:
+        new_price = input('Enter the new price for {inventory[choice]["name"]}: ')
+        inventory[choice]["price"] = float(new_price)
+        print(f'The price for {inventory[choice]["name"]} has been updated to ${inventory[choice]["price"]}')
+    else:
+        print('Invalid product ID. Please try again.')
+
+
+def inventory_reorder():
+    while True:
+        print('-' * 53)
+        print(f'|{"Product ID":^12}|{"Item":^12}|{"Price":^12}|{"Quantity":^12}|')
+        print('-' * 53)
+        for sku, sku_details in inventory.items():
+            print(f'|{sku:12}|{sku_details["name"]:^12}|{sku_details["price"]:>12}|{sku_details["quantity"]:<12}|')
+            print('-' * 53)
+
+        product_reorder = input("Enter the product name of the product to reorder or 'q' to quit> ")
+        if product_reorder == 'q':
+            return
+        elif product_reorder in [sku["name"] for sku in inventory.values()]:
+            quantity = int(input('Enter the order quantity >'))
+            for sku, sku_details in inventory.items():
+                if sku_details["name"] == product_reorder: 
+                    sku_details["quantity"] += quantity
+                    print(f'Reordered {quantity} units of {product_reorder}. New stock: {sku_details["quantity"]}')
+                    break
+        else:
+            print ('Invalid product. Try again')
+
+
+def customer_logout():
+    print("Logged out successfully.")
+
+
+def manager_logout():
+    print("Logged out successfully.")
+
+# Main program
+quit_program = False
+
+while not quit_program:
+    if not main_menu():
+        break
+            
+    if is_customer:
+        while True:      
+            print('1.Proceed with Order 2.Order Summary 3.Logout 4.Exit')
+            choice = int(input('Enter 1, 2, 3 or 4> '))
+            if choice == 1:
+                submit_order()
+            elif choice == 2:
+                customer_view_orders()
+            elif choice == 3:
+                print('Logging out...')
+                break
+            elif choice == 4:
+                print('Exiting...')
+                quit_program = True
+                break
+            else:
+                print('Invalid choice')          
+    else:
+        while True:
+            print('1.Display orders 2.Edit prices 3.Reorder Stock 4.Logout 5.Exit')
+            choice = int(input('Enter 1, 2, 3, 4 or 5> '))
+            if choice == 1:
+                manager_view_orders()
+            elif choice == 2:
+                edit_prices()
+            elif choice == 3:
+                inventory_reorder()
+            elif choice == 4:
+                print('Logging out...')
+                break
+            elif choice == 5:
+                print('Exiting...')
+                quit_program = True
+                break
+            else: 
+                print('Invalid choice')
+     
+    print('Goodbye!')
+
+
+
+
+
+
+
+
+
+
+
+
