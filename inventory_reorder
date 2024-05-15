@@ -1,33 +1,31 @@
 products = {
-    101: {'name':'headphones', 'price': 15.0, 'instock': 15},
-    102: {'name':'laptop', 'price': 10.0, 'instock': 5},
-    103: {'name':'pen', 'price': 3.0, 'instock': 0},
+    101: {'name':'headphones', 'price': 15.0, 'quantity': 15},
+    102: {'name':'laptop', 'price': 10.0, 'quantity': 5},
+    103: {'name':'pen', 'price': 3.0, 'quantity': 0},
 }
 
 
-def manager_display_products(prd_dict):
-    for prd_details in prd_dict.values():
-        print(f'Product Stock: {prd_details["name"]} - ${prd_details["price"]} - {prd_details["instock"]}')
+def inventory_reorder():
+    while True:
+        print('-' * 53)
+        print(f'|{"Product ID":^12}|{"Item":^12}|{"Price":^12}|{"Quantity":^12}|')
+        print('-' * 53)
+        for sku, sku_details in inventory.items():
+            print(f'|{sku:12}|{sku_details["name"]:^12}|{sku_details["price"]:>12}|{sku_details["quantity"]:<12}|')
+            print('-' * 53)
 
-
-def reorder_stock():
-    #collect inputs
-    product_reorder = input('Enter the name of the product to reorder >')
-    if product_reorder in [sku['name'] for sku in products.values()]:
-        quantity = int(input('Enter the order quantity >'))
-        for sku, sku_details in products.items():
-            if sku_details['name'] == product_reorder: 
-                sku_details['instock'] += quantity
-                print(f'Reordered {quantity} units of {product_reorder}. New stock: {sku_details["instock"]}')
-                break
-    else:
-        print ('Invalid product. Try again')
-
-
-manager_display_products()
-reorder_stock(products)
-manager_display_products()
-    
+        product_reorder = input("Enter the product name of the product to reorder or 'q' to quit> ")
+        if product_reorder == 'q':
+            return
+        elif product_reorder in [sku["name"] for sku in inventory.values()]:
+            quantity = int(input('Enter the order quantity >'))
+            for sku, sku_details in inventory.items():
+                if sku_details["name"] == product_reorder: 
+                    sku_details["quantity"] += quantity
+                    print(f'Reordered {quantity} units of {product_reorder}. New stock: {sku_details["quantity"]}')
+                    break
+        else:
+            print ('Invalid product. Try again')
 
 def login():
     pass
