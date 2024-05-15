@@ -1,0 +1,50 @@
+inventory = {
+    '101': {'price': 90, 'name': 'pen', 'quantity':3, 'ux_id':1}, 
+    '102': {'price': 70, 'name':'headphone', 'quantity':200, 'ux_id':2},
+    '103': {'price': 80, 'name':'laptop', 'quantity':300, 'ux_id':3},
+    }
+
+
+def submit_order():
+    while True:
+        #show products
+        print('-' * 37)
+        print(f'|{"Product #":^11s}|{"Name":^12s}|{"Price":^10s}|')
+        print('-' * 37)
+        for sku in inventory:
+                print(f'|{sku:^11}|{inventory[sku]["name"]:>12s}|{inventory[sku]["price"]:>10.2f}|')
+                print('-' * 37)
+
+        #ASK for input
+        ux_id = int(input("Enter product you want to order:\n1 for pen\n2 for headphone\n3 for laptop or 'q' to exit the menu>> "))
+
+
+        #compute total order 
+        if ux_id == 'q':
+            return
+            
+        elif ux_id in [sku['ux_id'] for sku in inventory.values()]: 
+            quantity = int(input('Enter quantity>>'))
+
+            for sku in inventory.values():
+                if sku['ux_id'] == ux_id:
+                    if quantity > sku['quantity']:
+                        print("Not enough stock! Try again or 'q' for exit >>" )
+                    else:
+                        price = sku['price']
+                        total_order = price * quantity
+                        print(total_order)
+                
+        else:
+            print('na')
+
+            # 
+            # else:
+            #     order_price = inventory[str(ux_id)]['price'] * quantity
+            #     inventory[str(ux_id)]['quantity'] -= quantity                
+            #     product_name = inventory[str(ux_id)]['name']
+            #     print(f'Product name: {product_name:s}\nQuantity ordered: {quantity}\nOrder price: {order_price:.2f}')  
+
+
+
+submit_order()
