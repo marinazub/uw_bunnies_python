@@ -27,7 +27,7 @@ def login():
     is_customer = int(input('Welcome to the login page! For a manager, enter 0, for a customer, enter 1 >'))
 
     if is_customer:
-        customer_portal_id = int(input('Enter id >'))
+        customer_portal_id = input('Enter id >')
         customer_portal_password = input('Enter password >')
         if customer_portal_id in c_login and customer_portal_password == c_login[customer_portal_id]['password']:
             print(f'Welcome: {c_login[customer_portal_id]["name"]}')
@@ -36,7 +36,7 @@ def login():
             print('Wrong credentials. Try again')
             return False
     else:
-        manager_portal_id = int(input('Enter id >'))
+        manager_portal_id = input('Enter id >')
         manager_portal_password = input('Enter password >')
         if manager_portal_id in m_login and manager_portal_password == m_login[manager_portal_id]['password']:
             print(f'Welcome: {m_login[manager_portal_id]["name"]}! What would you like to do today?')
