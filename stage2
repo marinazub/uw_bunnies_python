@@ -26,24 +26,28 @@ def login():
     global is_customer, customer_portal_id
     is_customer = int(input('Welcome to the login page! For a manager, enter 0, for a customer, enter 1 >'))
 
-    if is_customer:
-        customer_portal_id = int(input('Enter id >'))
-        customer_portal_password = input('Enter password >')
+    if is_customer == 1:
+        customer_portal_id = int(input('Enter customer id >'))
+        customer_portal_password = input('Enter customer password >')
         if customer_portal_id in c_login and customer_portal_password == c_login[customer_portal_id]['password']:
             print(f'Welcome: {c_login[customer_portal_id]["name"]}')
             return True
         else:
             print('Wrong credentials. Try again')
             return False
-    else:
-        manager_portal_id = int(input('Enter id >'))
-        manager_portal_password = input('Enter password >')
+    elif is_customer == 0:
+        manager_portal_id = int(input('Enter manager id >'))
+        manager_portal_password = input('Enter manager password >')
         if manager_portal_id in m_login and manager_portal_password == m_login[manager_portal_id]['password']:
             print(f'Welcome: {m_login[manager_portal_id]["name"]}! What would you like to do today?')
             return True
         else:
             print('Wrong credentials. Try again')
             return False
+    else:
+         print('Invalid choice. Please enter 0 or 1.')
+
+
         
 def main_menu():
     while True:
@@ -246,15 +250,3 @@ while not quit_program:
                 print('Invalid choice')
      
     print('Goodbye!')
-
-
-
-
-
-
-
-
-
-
-
-
