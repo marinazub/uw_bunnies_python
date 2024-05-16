@@ -8,14 +8,14 @@ inventory = {
     }
 orders = {}
 m_login = {
-    101: {'password':'101m', 'name': 'Jose'},
-    102: {'password':'102m', 'name': 'Danny'},
-    103: {'password':'103m', 'name': 'Rosa'},
+    101: {'password':'101', 'name': 'Jose'},
+    102: {'password':'102', 'name': 'Danny'},
+    103: {'password':'103', 'name': 'Rosa'},
 }
 c_login = {
-    111: {'password':'102c', 'name':'Alex'},
-    112: {'password':'103c', 'name': 'Maria'},
-    113: {'password':'101c', 'name': 'Ben'},
+    111: {'password':'102', 'name':'Alex'},
+    112: {'password':'103', 'name': 'Maria'},
+    113: {'password':'101', 'name': 'Ben'},
 }
 order_ID = 10000
 customer_portal_id = 0
